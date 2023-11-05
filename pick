@@ -39,8 +39,9 @@ echo "project file is $FILENAME"
 
 echo "mod $MODULE_NAME;" >> src/lib.rs
 git add src/lib.rs
-cp ./pick_output $FILENAME
+cp ./pick_output   $FILENAME
 sed -i 's/^/\/\/ /' $FILENAME
+sed -i "s/ is on the run...//" $FILENAME
 echo "struct Solution;" >> $FILENAME
 cat $CLI_FILENAME >> $FILENAME
 rm pick_output

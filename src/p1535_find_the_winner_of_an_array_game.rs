@@ -1,5 +1,5 @@
 // 
-// [1535] Find the Winner of an Array Game is on the run...
+// [1535] Find the Winner of an Array Game
 // 
 // 
 // Given an integer array arr of distinct integers and an integer k.
