@@ -1,0 +1,46 @@
+#!/usr/bin/env fish
+# vim:ft=fish
+
+
+echo "picking $argv[1]"
+
+if test -e ./pick_output
+    echo "prior output exists"
+else
+    leetcode pick $argv[1] > pick_output
+end
+
+set NUMBER $(cat ./pick_output | rg "^\[[[:digit:]]+\]" | head -n 1 | choose 0 | tr -d "[]")
+echo "problem $NUMBER"
+
+leetcode edit $NUMBER 2>/dev/null
+
+# we are relying on the leetcode cli having bad editor params in the config
+# this ends the editor process we don't want but creates the file
+
+# while test -z $(ps -ef | rg " vi .*/$NUMBER\." | choose 2)
+#     sleep 0.1
+# end
+#
+# kill -9 %1
+
+set ZERO_PADDED_NUMBER $(printf "%0*d" 4 $NUMBER)
+set NAME $(ls ~/.leetcode/code | rg "^$NUMBER\." | choose -f "\." 1)
+set UNDERSCORE_NAME $(echo $NAME | sed "s/-/_/g")
+
+set CLI_FILENAME ~/.leetcode/code/$NUMBER.$NAME.rs
+
+echo "cli file is $CLI_FILENAME"
+
+set MODULE_NAME p$ZERO_PADDED_NUMBER\_$UNDERSCORE_NAME
+set FILENAME ./src/$MODULE_NAME.rs
+
+echo "project file is $FILENAME"
+
+echo "mod $MODULE_NAME;" >> src/lib.rs
+cp ./pick_output $FILENAME
+sed -i 's/^/\/\/ /' $FILENAME
+echo "struct Solution;" >> $FILENAME
+cat $CLI_FILENAME >> $FILENAME
+rm pick_output
+~/gits/nvim.flake/result/bin/nvim $FILENAME

@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+# vim:ft=fish
+
+
+
+if test -z $argv[1]
+    echo "no number choosen"
+    exit
+end
+# set NUMBER $(cat ./pick_output | rg "^\[[[:digit:]]+\]" | head -n 1 | choose 0 | tr -d "[]")
+set NUMBER $argv[1]
+set ZERO_PADDED_NUMBER $(printf "%0*d" 4 $NUMBER)
+set NAME $(ls ~/.leetcode/code | rg "^$NUMBER\." | choose -f "\." 1)
+set UNDERSCORE_NAME $(echo $NAME | sed "s/-/_/g")
+set CLI_FILENAME ~/.leetcode/code/$NUMBER.$NAME.rs
+set MODULE_NAME p$ZERO_PADDED_NUMBER\_$UNDERSCORE_NAME
+set FILENAME ./src/$MODULE_NAME.rs
+
+echo "submitting $argv[1], $NAME"
+echo "project file is $FILENAME"
+echo "cli file is $CLI_FILENAME"
+
+cat $FILENAME | rg -v "^//" | rg -v "^struct Solution;" > $CLI_FILENAME
+
+leetcode exec $NUMBER
