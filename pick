@@ -38,6 +38,7 @@ set FILENAME ./src/$MODULE_NAME.rs
 echo "project file is $FILENAME"
 
 echo "mod $MODULE_NAME;" >> src/lib.rs
+git add src/lib.rs
 cp ./pick_output $FILENAME
 sed -i 's/^/\/\/ /' $FILENAME
 echo "struct Solution;" >> $FILENAME
