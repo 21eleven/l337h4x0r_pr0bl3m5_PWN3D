@@ -54,23 +54,31 @@ impl ListNode {
 }
 impl Solution {
     pub fn merge_two_lists(
-        a: Option<Box<ListNode>>,
-        b: Option<Box<ListNode>>,
+        mut a: Option<Box<ListNode>>,
+        mut b: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        match (a, b) {
-            (None, None) => None,
-            (a, None) => a,
-            (None, b) => b,
-            (Some(mut a), Some(mut b)) => {
-                if a.val <= b.val {
-                    a.next = Self::merge_two_lists(a.next, Some(b));
-                    Some(a)
-                } else {
-                    b.next = Self::merge_two_lists(Some(a), b.next);
-                    Some(b)
-                }
+        let mut root = ListNode::new(0);
+        let mut curr = &mut root;
+
+        while a.is_some() && b.is_some() {
+            if a.as_ref().unwrap().val <= b.as_ref().unwrap().val {
+                curr.next = a.take();
+                curr = curr.next.as_mut().unwrap();
+                a = curr.next.take();
+            } else {
+                curr.next = b.take();
+                curr = curr.next.as_mut().unwrap();
+                b = curr.next.take();
             }
+
         }
+        if a.is_some() {
+            curr.next = a;
+        }
+        if b.is_some() {
+            curr.next = b;
+        }
+        root.next
     }
 }
 
