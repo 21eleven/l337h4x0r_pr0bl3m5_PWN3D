@@ -54,42 +54,23 @@ impl ListNode {
 }
 impl Solution {
     pub fn merge_two_lists(
-        list1: Option<Box<ListNode>>,
-        list2: Option<Box<ListNode>>,
+        a: Option<Box<ListNode>>,
+        b: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        let mut head = ListNode::new(0);
-        // let x = &mut head;
-        // let mut a = list1;
-        // let mut b = list2;
-
-        fn recurse(ptr: &mut ListNode, mut a: Option<Box<ListNode>>, mut b: Option<Box<ListNode>>) {
-            match (a, b) {
-                (Some(x), Some(y)) => {
-                    if x.val <= y.val {
-                        let mut new_node = ListNode::new(x.val);
-                        recurse(&mut new_node, x.next, Some(y));
-                        ptr.next = Some(Box::new(new_node));
-                    } else {
-                        let mut new_node = ListNode::new(y.val);
-                        recurse(&mut new_node, Some(x), y.next);
-                        ptr.next = Some(Box::new(new_node));
-                    }
-                }
-                (Some(x), None) => {
-                    ptr.next = Some(x);
-                }
-                (None, Some(y)) => {
-                    ptr.next = Some(y);
-                }
-                (None, None) => {
-                    // nothing to od
+        match (a, b) {
+            (None, None) => None,
+            (a, None) => a,
+            (None, b) => b,
+            (Some(mut a), Some(mut b)) => {
+                if a.val <= b.val {
+                    a.next = Self::merge_two_lists(a.next, Some(b));
+                    Some(a)
+                } else {
+                    b.next = Self::merge_two_lists(Some(a), b.next);
+                    Some(b)
                 }
             }
-
         }
-        recurse(&mut head, list1, list2);
-        head.next
-
     }
 }
 
