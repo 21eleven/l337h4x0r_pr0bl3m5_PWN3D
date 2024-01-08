@@ -40,10 +40,13 @@
 struct Solution;
 impl Solution {
     pub fn is_palindrome(s: String) -> bool {
-        let s = s.to_lowercase();
-        let letters = s.chars().filter(|c| c.is_alphanumeric());
-        let backwards = letters.clone().rev();
-        letters.zip(backwards).fold(true, |acc, (a, b)| acc && a == b)
+        let mut chars = s.chars().filter(|c| c.is_alphanumeric()).map(|c| c.to_ascii_lowercase());
+        while let (Some(a), Some(b)) = (chars.next(), chars.next_back()) {
+            if a != b {
+                return false
+            }
+        }
+        true
     }
 }
 
@@ -51,4 +54,5 @@ impl Solution {
 fn chk() {
     assert!(Solution::is_palindrome("OP".to_string()) == false);
     assert!(Solution::is_palindrome("0P".to_string()) == false);
+    assert!(Solution::is_palindrome("A man, a plan, a canal: Panama".to_string()) == true);
 }
