@@ -57,28 +57,15 @@ impl Solution {
         mut a: Option<Box<ListNode>>,
         mut b: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        let mut root = ListNode::new(0);
-        let mut curr = &mut root;
-
-        while a.is_some() && b.is_some() {
-            if a.as_ref().unwrap().val <= b.as_ref().unwrap().val {
-                curr.next = a.take();
-                curr = curr.next.as_mut().unwrap();
-                a = curr.next.take();
-            } else {
-                curr.next = b.take();
-                curr = curr.next.as_mut().unwrap();
-                b = curr.next.take();
+        let mut curr = &mut a;
+        while b.is_some() {
+            if curr.is_none() || b.as_ref()?.val < curr.as_ref()?.val {
+                std::mem::swap(curr, &mut b)
             }
-
+            // advances the pointer
+            curr = &mut curr.as_mut()?.next;
         }
-        if a.is_some() {
-            curr.next = a;
-        }
-        if b.is_some() {
-            curr.next = b;
-        }
-        root.next
+        a
     }
 }
 
