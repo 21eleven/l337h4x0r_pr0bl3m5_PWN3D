@@ -20,6 +20,6 @@ echo "submitting $argv[1], $NAME"
 echo "project file is $FILENAME"
 echo "cli file is $CLI_FILENAME"
 
-cat $FILENAME | rg -v "^//" | rg -v "^struct Solution;" > $CLI_FILENAME
+cat $FILENAME | rg -v "^//" | rg -v "^struct Solution;" | rg -v "^use crate::nodes" > $CLI_FILENAME
 
 leetcode exec $NUMBER

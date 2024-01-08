@@ -40,18 +40,7 @@
 // error: error decoding response body: expected value at line 1 column 1, please try again
 struct Solution;
 // Definition for singly-linked list.
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>,
-}
-
-impl ListNode {
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode { next: None, val }
-    }
-}
+use crate::nodes::ListNode;
 impl Solution {
     pub fn merge_two_lists(
         mut a: Option<Box<ListNode>>,
