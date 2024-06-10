@@ -9,3 +9,4 @@ mod p0938_range_sum_of_bst;
 mod p0121_best_time_to_buy_and_sell_stock;
 mod p0125_valid_palindrome;
 mod nodes;
+mod p0648_replace_words;
