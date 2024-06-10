@@ -10,3 +10,4 @@ mod p0121_best_time_to_buy_and_sell_stock;
 mod p0125_valid_palindrome;
 mod nodes;
 mod p0648_replace_words;
+mod p1051_height_checker;
