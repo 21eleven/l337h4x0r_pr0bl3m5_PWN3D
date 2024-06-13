@@ -90,32 +90,7 @@ impl Solution {
             }
 
         }
-        // while idx < rm_idx - 1 {
-        //     prev = &mut prev.as_mut().unwrap().next;
-        //     idx += 1;
-        // } 
-        // let prior = &mut prev.as_mut();
-        // let nxt = prior.unwrap().next.unwrap().next;
-        dbg!(count, rm_idx);
         head
-        // fn count(node: &Option<Box<ListNode>>, n: i32) -> i32 {
-        //     match node {
-        //         None => n,
-        //         Some(node) => {
-        //             count(&node.next, n+1)
-        //         }
-        //     }
-        // }
-        // fn replace(node: &Option<Box<ListNode>>, n: i32)
-        // let mut x = head.clone().unwrap();
-        // let y = x.next.unwrap().next;
-
-        // let len = count(&head, 0);
-        // dbg!(len);
-        // if len == 1 {
-        //     return None
-        // }
-        // head
     }
 }
 #[test]
@@ -163,13 +138,4 @@ fn test_linked_list_del() {
     let a = mk_ll(vec![1,2,3,4,5]);
     let b = Solution::delete_middle(a);
     print_ll(b);
-}
-
-// #[test]
-fn rand_test() {
-    let x = 8;
-    let y = &x;
-
-    let x = 9;
-    dbg!(x, y);
 }
