@@ -12,3 +12,6 @@ mod nodes;
 mod p0648_replace_words;
 mod p1051_height_checker;
 mod p2095_delete_the_middle_node_of_a_linked_list;
+mod p0206_reverse_linked_list;
+mod p1518_water_bottles;
+mod p1980_find_unique_binary_string;

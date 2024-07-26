@@ -32,3 +32,34 @@ impl TreeNode {
   }
 }
 
+
+pub mod test {
+    use super::ListNode;
+    pub fn mk_ll(nodes: Vec<i32>) -> Option<Box<ListNode>> {
+        let mut head = ListNode::new(0);
+        let vals = nodes.into_iter().rev().collect::<Vec<i32>>();
+        fn recurse(node: &mut ListNode, mut vals: Vec<i32>) {
+            if let Some(x) = vals.pop() {
+                let mut new = ListNode::new(x);
+                recurse(&mut new, vals);
+                node.next = Some(Box::new(new));
+            }
+        }
+        recurse(&mut head, vals);
+        head.next
+    }
+    pub fn print_ll(head: Option<Box<ListNode>>) {
+        let mut nums: Vec<i32> = vec![];
+        fn recurse(node: Option<Box<ListNode>>) -> Vec<i32> {
+            match node {
+                None => vec![],
+                Some(n) => {
+                    let mut nums = vec![n.val];
+                    nums.append(&mut recurse(n.next));
+                    nums
+                }
+            }
+        }
+        println!("{:?}", recurse(head));
+    }
+}

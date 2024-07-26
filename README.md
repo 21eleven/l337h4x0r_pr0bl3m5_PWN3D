@@ -1,6 +1,8 @@
 
-# pick
+# auth
+- put session token and csrf cookie in `~/.leetcode/leetcode.toml` 
 
+# pick
 - pick without any arguments picks the problem of the day
 - `./pick 21` picks leetcode's 21st problem
 
